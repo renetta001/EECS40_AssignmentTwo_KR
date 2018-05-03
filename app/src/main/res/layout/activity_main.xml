@@ -35,7 +35,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:autoText="false"
-                android:background="@android:color/darker_gray"
+                android:background="@android:drawable/alert_light_frame"
                 android:text="-"
                 android:textSize="30sp" />
 
@@ -44,7 +44,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@android:color/darker_gray"
+                android:background="@android:drawable/alert_light_frame"
                 android:text="+"
                 android:textSize="30sp" />
 
@@ -53,8 +53,8 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@android:color/darker_gray"
-                android:text="Back"
+                android:background="@android:drawable/alert_light_frame"
+                android:text="B"
                 android:textSize="30sp" />
 
             <Button
@@ -63,7 +63,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@android:color/darker_gray"
+                android:background="@android:drawable/alert_light_frame"
                 android:text="AC"
                 android:textSize="30sp" />
 
@@ -79,7 +79,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@android:color/holo_blue_bright"
+                android:background="@android:drawable/alert_light_frame"
                 android:text="7" />
 
             <Button
@@ -87,7 +87,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@android:color/holo_blue_bright"
+                android:background="@android:drawable/alert_light_frame"
                 android:text="8"
                 android:textSize="30sp" />
 
@@ -96,7 +96,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@android:color/holo_blue_bright"
+                android:background="@android:drawable/alert_light_frame"
                 android:text="9"
                 android:textSize="30sp" />
 
@@ -105,7 +105,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@android:color/darker_gray"
+                android:background="@android:drawable/alert_light_frame"
                 android:text="/"
                 android:textSize="30sp" />
 
@@ -121,7 +121,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@android:color/holo_blue_bright"
+                android:background="@android:drawable/alert_light_frame"
                 android:text="4"
                 android:textSize="30sp" />
 
@@ -130,7 +130,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@android:color/holo_blue_bright"
+                android:background="@android:drawable/alert_light_frame"
                 android:text="5"
                 android:textSize="30sp" />
 
