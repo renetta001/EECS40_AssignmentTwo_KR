@@ -15,17 +15,17 @@ import net.objecthunter.exp4j.ExpressionBuilder;
 
 public class MainActivity extends AppCompatActivity {
     // IDs of all the numeric buttons
-    private int[] numericButtons = {R.id.btnZero, R.id.btnOne, R.id.btnTwo, R.id.btnThree, R.id.btnFour, R.id.btnFive, R.id.btnSix, R.id.btnSeven, R.id.btnEight, R.id.btnNine};
+    private int[] numbers = {R.id.button0, R.id.button1, R.id.button2, R.id.button3, R.id.button4, R.id.button5, R.id.button6, R.id.button7, R.id.button8, R.id.button9};
     // IDs of all the operator buttons
-    private int[] operatorButtons = {R.id.btnAdd, R.id.btnSubtract, R.id.btnMultiply, R.id.btnDivide};
+    private int[] operators = {R.id.buttonadd, R.id.buttonsubtract, R.id.buttonMultiply, R.id.buttondivide,R.id.buttonpercent,R.id.buttonback};
     // TextView used to display the output
-    private TextView txtScreen;
+    private TextView Screen;
     // Represent whether the lastly pressed key is numeric or not
-    private boolean lastNumeric;
+    private boolean lastpressed;
     // Represent that current state is in error or not
-    private boolean stateError;
+    private boolean error;
     // If true, do not allow to add another DOT
-    private boolean lastDot;
+    private boolean lastdecimal;
     //Last entryin calculator
     //private String Lastentry;
    // StringBuffer sb = new StringBuffer(40);
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         // Find the TextView
-        this.txtScreen = (TextView) findViewById(R.id.txtScreen);
+        this.Screen = (TextView) findViewById(R.id.Screen);
         // Find and set OnClickListener to numeric buttons
         setNumericOnClickListener();
         // Find and set OnClickListener to operator buttons, equal button and decimal point button
@@ -49,24 +49,24 @@ public class MainActivity extends AppCompatActivity {
         // Create a common OnClickListener
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View s) {
                 // Just append/set the text of clicked button
-                Button button = (Button) v;
-                if (stateError) {
+                Button button = (Button) s;
+                if (error) {
                     // If current state is Error, replace the error message
-                    txtScreen.setText(button.getText());
-                    stateError = false;
+                    Screen.setText(button.getText());
+                    error = false;
                 } else {
                     // If not, already there is a valid expression so append to it
-                    txtScreen.append(button.getText());
+                    Screen.append(button.getText());
                    // Lastentry = sb.append(button.getText()).toString();
                 }
                 // Set the flag
-                lastNumeric = true;
+                lastpressed = true;
             }
         };
         // Assign the listener to all the numeric buttons
-        for (int id : numericButtons) {
+        for (int id : numbers) {
             findViewById(id).setOnClickListener(listener);
         }
     }
@@ -78,66 +78,66 @@ public class MainActivity extends AppCompatActivity {
         // Create a common OnClickListener for operators
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View screen) {
                 // If the current state is Error do not append the operator
                 // If the last input is number only, append the operator
-                if (lastNumeric && !stateError) {
-                    Button button = (Button) v;
-                    txtScreen.append(button.getText());
+                if (lastpressed && !error) {
+                    Button button = (Button) screen;
+                    Screen.append(button.getText());
                    // Lastentry = sb.append(button.getText()).toString();
-                    lastNumeric = false;
-                    lastDot = false;    // Reset the DOT flag
+                    lastpressed = false;
+                    lastdecimal = false;    // Reset the DOT flag
                 }
             }
         };
         // Assign the listener to all the operator buttons
-        for (int id : operatorButtons) {
+        for (int id : operators) {
             findViewById(id).setOnClickListener(listener);
         }
         // Decimal point
-        findViewById(R.id.btnDot).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.buttondecimal).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                if (lastNumeric && !stateError && !lastDot) {
-                    txtScreen.append(".");
+            public void onClick(View screen) {
+                if (lastpressed && !error && !lastdecimal) {
+                    Screen.append(".");
                    // Lastentry = sb.append(".").toString();
-                    lastNumeric = false;
-                    lastDot = true;
+                    lastpressed = false;
+                    lastdecimal = true;
                 }
             }
         });
 
         // AllClear button
-        findViewById(R.id.btnAllClear).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.buttonclear).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                txtScreen.setText("");  // Clear the screen
+            public void onClick(View screen) {
+                Screen.setText("");  // Clear the screen
                 // Reset all the states and flags
-                lastNumeric = false;
-                stateError = false;
-                lastDot = false;
+                lastpressed = false;
+                error = false;
+                lastdecimal = false;
             }
         });
 
         // Clear button
-        findViewById(R.id.btnAllClear).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.buttonclear).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View screen) {
                 //Button button = (Button) v;
 
-                txtScreen.setText("");  // Clear the screen
+                Screen.setText("");  // Clear the screen
                 // Reset all the states and flags
-                lastNumeric = false;
-                stateError = false;
-                lastDot = false;
+                lastpressed = false;
+                error = false;
+                lastdecimal = false;
             }
         });
 
         // Equal button
-        findViewById(R.id.btnEqual).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.buttonequal).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                onEqual();
+            public void onClick(View screen) {
+                Result();
             }
         });
     }
@@ -145,24 +145,24 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Logic to calculate the solution.
      */
-    private void onEqual() {
+    private void Result() {
         // If the current state is error, nothing to do.
         // If the last input is a number only, solution can be found.
-        if (lastNumeric && !stateError) {
+        if (lastpressed && !error) {
             // Read the expression
-            String txt = txtScreen.getText().toString();
+            String txt = Screen.getText().toString();
             // Create an Expression (A class from exp4j library)
             Expression expression = new ExpressionBuilder(txt).build();
             try {
                 // Calculate the result and display
                 double result = expression.evaluate();
-                txtScreen.setText(Double.toString(result));
-                lastDot = true; // Result contains a dot
+                Screen.setText(Double.toString(result));
+                lastdecimal = true; // Result contains a decimal
             } catch (ArithmeticException ex) {
                 // Display an error message
-                txtScreen.setText("Error");
-                stateError = true;
-                lastNumeric = false;
+                Screen.setText("Error");
+                error = true;
+                lastpressed = false;
             }
         }
     }
